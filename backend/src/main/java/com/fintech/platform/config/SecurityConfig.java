@@ -53,10 +53,15 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/password-reset/**").permitAll()
-                        .requestMatchers("/ws/**").permitAll()
-                        .requestMatchers("/api/test/**").permitAll()
+                        // ✅ Public endpoints
+                        .requestMatchers("/").permitAll()                          // Root endpoint
+                        .requestMatchers("/actuator/**").permitAll()               // Health checks
+                        .requestMatchers("/api/test/**").permitAll()               // Test endpoints
+                        .requestMatchers("/api/auth/**").permitAll()               // Auth endpoints
+                        .requestMatchers("/api/password-reset/**").permitAll()     // Password reset
+                        .requestMatchers("/ws/**").permitAll()                     // WebSocket
+                        .requestMatchers("/error").permitAll()                     // Error page
+                        // All other requests need authentication
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
