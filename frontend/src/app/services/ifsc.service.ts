@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BankDetails } from '../models/account.model';
+import { API_BASE } from '../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IfscService {
-  private ifscApi = 'http://localhost:8081/api/ifsc';
+  private apiUrl = `${API_BASE}/ifsc`;
 
   constructor(private http: HttpClient) {}
 

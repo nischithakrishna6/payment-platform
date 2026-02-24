@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Expense, ExpenseStats } from '../models/expense.model';
 import { ApiResponse } from '../models/user.model';
+import { API_BASE } from '../config/api.config';
 
 @Injectable({
   providedIn: 'root'

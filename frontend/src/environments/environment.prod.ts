@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://nexavault-backend.onrender.com/api'
+  apiUrl: 'https://nexavault-backend.onrender.com/api',
+  wsUrl: 'https://nexavault-backend.onrender.com/ws'
 };

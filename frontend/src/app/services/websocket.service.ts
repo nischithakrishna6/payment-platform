@@ -1,8 +1,12 @@
+// ============================================
+// FILE: src/app/services/websocket.service.ts
+// ============================================
+
 import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import { Subject } from 'rxjs';
 import SockJS from 'sockjs-client';
-
+import { WS_BASE } from '../config/api.config';  // ✅ Import centralized WS_BASE
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +18,7 @@ export class WebsocketService {
 
   connect(userId: number): void {
     this.client = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8081/ws') as any,
+      webSocketFactory: () => new SockJS(WS_BASE) as any,  // ✅ Use WS_BASE
       debug: (str: string) => console.log(str),
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
