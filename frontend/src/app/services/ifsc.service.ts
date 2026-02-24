@@ -8,11 +8,12 @@ import { API_BASE } from '../config/api.config';
   providedIn: 'root'
 })
 export class IfscService {
-  private apiUrl = `${API_BASE}/ifsc`;
+  private apiUrl = `${API_BASE}/ifsc`;  // ✅ Correct property name
 
   constructor(private http: HttpClient) {}
 
   verifyIFSC(ifscCode: string): Observable<BankDetails> {
-    return this.http.get<BankDetails>(`${this.ifscApi}/${ifscCode}`);
+    // ✅ Use this.apiUrl instead of this.ifscApi
+    return this.http.get<BankDetails>(`${this.apiUrl}/${ifscCode}`);
   }
 }
