@@ -3,39 +3,41 @@ package com.fintech.platform.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 public class CorsConfig {
 
     @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
+    public CorsConfigurationSource corsConfigurationSource() {
 
-        // Add both localhost (dev) and your production frontend
+        CorsConfiguration config = new CorsConfiguration();
+
+        // Allow frontend origins
         config.setAllowedOrigins(List.of(
                 "http://localhost:4200",
                 "https://nexavault-frontend.onrender.com"
         ));
 
-        config.setAllowedHeaders(Arrays.asList(
-                "Origin", "Content-Type", "Accept", "Authorization",
-                "Access-Control-Request-Method", "Access-Control-Request-Headers"
-        ));
-        config.setExposedHeaders(Arrays.asList(
-                "Origin", "Content-Type", "Accept", "Authorization",
-                "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"
-        ));
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        // Allow credentials (JWT, cookies, Authorization headers)
+        config.setAllowCredentials(true);
 
+        // Allow all headers
+        config.setAllowedHeaders(List.of("*"));
+
+        // Allow all HTTP methods (important for preflight)
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+
+        // Cache preflight response (improves performance)
+        config.setMaxAge(3600L);
+
+        // Register config for all endpoints
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
-        return new CorsFilter(source);
+        return source;
     }
 }
