@@ -41,11 +41,14 @@ NexaVault is a modern, full-stack fintech banking platform that provides users w
 ---
 
 ##  Features
-
+LOGIN PAGE
 <img width="1894" height="863" alt="Screenshot 2026-04-01 221256" src="https://github.com/user-attachments/assets/9ede58f3-f529-4a19-8389-d3d1a79013fe" />
-<img width="463" height="97" alt="Screenshot 2026-04-01 221404" src="https://github.com/user-attachments/assets/ea8e8acd-543d-429a-9ce7-ced391b76cbc" />
-<img width="721" height="628" alt="Screenshot 2026-04-01 221349" src="https://github.com/user-attachments/assets/b5601230-1cac-435f-af73-bfe9be37cc41" />
+REGISTER PAGE
 <img width="1899" height="866" alt="Screenshot 2026-04-01 221336" src="https://github.com/user-attachments/assets/31fdb603-4510-4ef3-b005-2f4b70c8d90a" />
+FOOTER
+<img width="463" height="97" alt="Screenshot 2026-04-01 221404" src="https://github.com/user-attachments/assets/ea8e8acd-543d-429a-9ce7-ced391b76cbc" />
+
+
 
 ###  Authentication & Security
 - JWT-based authentication system
