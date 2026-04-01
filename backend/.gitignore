@@ -1,33 +1,37 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# ========================
+# SECURITY
+# ========================
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# ========================
+# SPRING
+# ========================
+application-local.properties
+application-dev.properties
+application-secrets.properties
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# ========================
+# LOGS
+# ========================
+logs/
+*.log
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# ========================
+# NODE / ANGULAR
+# ========================
+node_modules/
+dist/
+.angular/
 
-### VS Code ###
-.vscode/
+# ========================
+# OS FILES
+# ========================
+.DS_Store
+Thumbs.db
