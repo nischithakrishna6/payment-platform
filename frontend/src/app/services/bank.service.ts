@@ -16,7 +16,7 @@ export class BankService {
     { code: 'BARB', name: 'Bank of Baroda', logo: 'banks/bob.svg', color: '#f05a29' },
     { code: 'CNRB', name: 'Canara Bank', logo: 'banks/canara.svg', color: '#d71920' },
     { code: 'UBIN', name: 'Union Bank of India', logo: 'banks/union.svg', color: '#1f4788' },
-    { code: 'IDIB', name: 'IDBI Bank', logo: 'banks/idbi.svg', color: '#00539f' },
+    { code: 'IBKL', name: 'IDBI Bank', logo: 'banks/idbi.svg', color: '#00539f' },
     { code: 'INDB', name: 'IndusInd Bank', logo: 'banks/indusind.svg', color: '#c90016' },
     { code: 'YESB', name: 'Yes Bank', logo: 'banks/yes.svg', color: '#003e7e' }
   ];
