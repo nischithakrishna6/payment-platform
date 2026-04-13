@@ -25,6 +25,7 @@ public class TransactionService {
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
     private final SimpMessagingTemplate messagingTemplate;
+    private final EmailService emailService; // ✅ ADD THIS
 
     @Transactional
     public TransactionDTO transferMoney(TransferRequest request) {
@@ -50,7 +51,6 @@ public class TransactionService {
 
         List<Account> allAccounts = accountRepository.findAll();
         System.out.println("All accounts in database:");
-
 
         // STEP 3: Find destination account
         Account toAccount = accountRepository.findByAccountNumber(destinationAccountNumber)
@@ -84,8 +84,6 @@ public class TransactionService {
         }
 
         // STEP 7: Only sender's account needs to be active
-        // ✅ Receiver's isActive is NOT checked — a zero-balance or inactive
-        //    account can still receive money (same as real banking behaviour)
         if (!fromAccount.getIsActive()) {
             System.err.println("✗ Source account is not active");
             throw new RuntimeException("Source account is not active");
@@ -123,13 +121,37 @@ public class TransactionService {
         Transaction savedTransaction = transactionRepository.save(transaction);
 
         System.out.println("✓ Transaction completed: " + savedTransaction.getReferenceNumber());
-        System.out.println("✓ Transaction ID: " + savedTransaction.getId());
-        System.out.println("✓ From Account ID: " + savedTransaction.getFromAccount().getId());
-        System.out.println("✓ To Account ID: " + savedTransaction.getToAccount().getId());
-        System.out.println("✓ Amount: " + savedTransaction.getAmount());
-        System.out.println("✓ Status: " + savedTransaction.getStatus());
 
-        // STEP 11: Real-time notifications
+        // ✅ STEP 11: Send transaction emails
+        try {
+            // Email to sender (DEBITED)
+            emailService.sendTransactionEmail(
+                    fromAccount.getUser().getEmail(),
+                    fromAccount.getAccountHolderName(),
+                    "DEBITED",
+                    request.getAmount().doubleValue(),
+                    fromAccount.getBalance().doubleValue(),
+                    savedTransaction.getReferenceNumber()
+            );
+
+            // Email to receiver (CREDITED)
+            emailService.sendTransactionEmail(
+                    toAccount.getUser().getEmail(),
+                    toAccount.getAccountHolderName(),
+                    "CREDITED",
+                    request.getAmount().doubleValue(),
+                    toAccount.getBalance().doubleValue(),
+                    savedTransaction.getReferenceNumber()
+            );
+
+            System.out.println("✓ Transaction emails sent");
+
+        } catch (Exception e) {
+            // Don't fail the transaction if email fails
+            System.err.println("✗ Failed to send transaction emails: " + e.getMessage());
+        }
+
+        // STEP 12: Real-time notifications
         try {
             TransactionDTO transactionDTO = convertToDTO(savedTransaction);
 
@@ -202,7 +224,6 @@ public class TransactionService {
 
         return dto;
     }
-
 
     private String generateReferenceNumber() {
         return "TXN-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
