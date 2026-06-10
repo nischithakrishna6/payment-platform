@@ -1,10 +1,13 @@
 .dashboard-main {
   display: flex;
-  gap: 2rem; /* spacing between charts and expenses */
-  align-items: flex-start; /* align top edges */
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .expense-tracker-container {
+  flex: 1;
+  min-width: 0;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -144,15 +147,16 @@
 }
 
 .chart-card {
-flex: 1; /* let them share available space equally */
-  max-width: 500px; /* cap width so they don’t stretch too wide */
+
+  flex: 1 1 400px;
+  width: auto;
+  max-width: 100%;
   background: rgb(255 255 255 / 60%);
   backdrop-filter: blur(20px);
   border: 1px solid rgb(255 255 255 / 50%);
   border-radius: 20px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  width: 500px;
 }
 
 .chart-card h3 {
@@ -174,10 +178,13 @@ flex: 1; /* let them share available space equally */
   border: 1px solid rgb(255 255 255 / 50%);
   border-radius: 20px;
   padding: 1.5rem;
-  height: 825px;
-  width: 600px;
-  overflow-y: auto; /* auto is usually better than scroll */
-  margin-top: 80px;
+   flex: 1 1 500px;
+   max-width: 600px;
+   min-width: 320px;
+   height: 825px;
+   overflow-y: auto;
+   margin-top: 80px;
+
 }
 
 
@@ -480,5 +487,22 @@ margin-top: -400px;
   .expense-actions {
     width: 100%;
     justify-content: space-between;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dashboard-main {
+    flex-direction: column;
+  }
+
+  .expenses-section {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .chart-card {
+    width: 100%;
+    max-width: 100%;
   }
 }
